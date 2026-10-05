@@ -1,0 +1,69 @@
+{
+  "_doc": "Official MetaTool occupation tool names only. Mix surfaces are LLM-generated.",
+  "scenes": {
+    "Finance Staff": {
+      "fold_from": [
+        "FinanceTool",
+        "ExchangeTool"
+      ],
+      "official_cover_keys": [
+        "ChartTool",
+        "PDF&URLTool",
+        "NotesTool",
+        "CreditYelp",
+        "LawTool",
+        "DataRetrievalTool",
+        "fundsdbsearch",
+        "CompanyInfoTool"
+      ]
+    },
+    "Housewife": {
+      "fold_from": [
+        "RestaurantBookingTool",
+        "recipe_retrieval"
+      ],
+      "official_cover_keys": [
+        "tira",
+        "Discount",
+        "ProductSearch",
+        "ABCmouse",
+        "IndoorPlants",
+        "HouseRentingTool",
+        "TripTool",
+        "CreditYelp"
+      ]
+    },
+    "artists&designers": {
+      "fold_from": [
+        "ImageSearch",
+        "MediaModifyTool"
+      ],
+      "official_cover_keys": [
+        "placid",
+        "find_agency",
+        "ArtCollection",
+        "ChartTool",
+        "storybird_stories",
+        "PolishTool",
+        "MusicTool",
+        "BookTool"
+      ]
+    },
+    "elders": {
+      "fold_from": [
+        "MapTool",
+        "TripAdviceTool"
+      ],
+      "official_cover_keys": [
+        "NewsTool",
+        "PolishTool",
+        "CharityTool",
+        "MemoryTool",
+        "WeatherTool",
+        "RestaurantBookingTool",
+        "DietTool",
+        "NotesTool"
+      ]
+    }
+  }
+}

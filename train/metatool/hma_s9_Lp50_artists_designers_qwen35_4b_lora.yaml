@@ -1,0 +1,56 @@
+### MetaTool occupation HMA SFT · s9 Lp50 · artists&designers · Qwen3.5-4B
+### 对齐官方 / LF：qwen3_6，enable_thinking: false
+### leftover 同 Vanilla；每条 H0_clean + s9 mix（一半 mix 全 leftover，一半无 leftover）
+### 不覆盖 v2 / s8 / s9 / abl1-4 ckpt
+###
+###   python3 scripts/build_hma_occupation_s9_L.py
+###   FORCE_TORCHRUN=1 NNODES=1 NPROC_PER_NODE=8 \
+###     llamafactory-cli train toolmind_metatool/train/hma_s9_Lp50_artists_designers_qwen35_4b_lora.yaml
+
+### model
+model_name_or_path: /media/cfs/ida-algo-train/ckpts/Qwen3.5-4B
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target: all
+
+### dataset
+dataset: metatool_occ_artists_designers_hma_s9_Lp50
+overwrite_cache: true
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+template: qwen3_6
+enable_thinking: false
+cutoff_len: 8192
+
+### output
+output_dir: /media/cfs/ida-algo-train/wjj/ckpts/metatool_occ_artists_designers_hma_s9_Lp50_lora_qwen35_4b
+logging_steps: 10
+save_steps: 10000000000
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+report_to: none
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 1
+gradient_checkpointing: true
+learning_rate: 5.0e-5
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.05
+bf16: true
+ddp_timeout: 180000000
+resume_from_checkpoint: null
+mask_history: false
+
+### eval
+val_size: 0.0
+per_device_eval_batch_size: 1

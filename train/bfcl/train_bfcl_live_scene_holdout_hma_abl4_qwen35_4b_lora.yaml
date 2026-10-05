@@ -1,0 +1,59 @@
+### BFCL live 六场景 holdout v1 · 论文 HMA-Base = abl4 · Qwen3.5-4B
+### 486 clean + 同条 H_mix_abl4（cover / rename / arg / reshape；无 far/near）
+### 注：比论文 Table 1 BFCL Train（rename/arg_rename/reshape）多混入 cover；Table 1 对应 abl4_c0
+### 评测仍是完整 H_mix_full 123。勿覆盖 mix_full jsonl / ckpt
+### 超参对齐 Vanilla / mix_full HMA：r16/a32、1ep、lr 5e-5
+### template 对齐官方 / LF：qwen3_6，enable_thinking: false
+###
+### 1) bash scripts/09_build_hma_abl4.sh
+### 2) jsonl + dataset_info 段拷到 LF data/
+### 3) FORCE_TORCHRUN=1 NNODES=1 NPROC_PER_NODE=16 \
+###      llamafactory-cli train train_bfcl_live_scene_holdout_hma_abl4_qwen35_4b_lora.yaml
+
+### model
+model_name_or_path: /media/cfs/ida-algo-train/ckpts/Qwen3.5-4B
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target: all
+
+### dataset
+dataset: bfcl_live_scene_holdout_hma_abl4
+overwrite_cache: true
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+template: qwen3_6
+enable_thinking: false
+cutoff_len: 12288
+
+### output
+output_dir: /media/cfs/ida-algo-train/wjj/ckpts/bfcl_live_scene_holdout_hma_abl4_lora_qwen35_4b
+logging_steps: 10
+save_steps: 10000000000
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+report_to: none
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 1
+gradient_checkpointing: true
+learning_rate: 5.0e-5
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.05
+bf16: true
+ddp_timeout: 180000000
+resume_from_checkpoint: null
+mask_history: false
+
+### eval
+val_size: 0.0
+per_device_eval_batch_size: 1

@@ -1,0 +1,59 @@
+### MetaTool occupation HMA SFT · s9 abl4_idr_cos_L25 · Finance Staff · Qwen3.5-4B
+### 对齐官方 / LF：qwen3_6，enable_thinking: false
+### abl4 骨架（无 far/near）+ IDR cosine + leftover 25%
+### 不覆盖 abl4 / 旧 abl4_idr / s9 / p* / q ckpt
+###   python3 scripts/build_hma_occupation_s9_idr_L.py
+
+### model
+model_name_or_path: /media/cfs/ida-algo-train/ckpts/Qwen3.5-4B
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target: all
+
+### dataset
+dataset: metatool_occ_finance_staff_hma_s9_abl4_idr_cos_L25
+overwrite_cache: true
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+template: qwen3_6
+enable_thinking: false
+cutoff_len: 8192
+
+### IDR  L = CE(anchor) + 0.1 * L_IDR
+use_idr_loss: true
+idr_alpha: 0.1
+idr_layer_idx: null
+idr_use_contrastive: false
+
+### output
+output_dir: /media/cfs/ida-algo-train/wjj/ckpts/metatool_occ_finance_staff_hma_s9_abl4_idr_cos_L25_lora_qwen35_4b
+logging_steps: 10
+save_steps: 10000000000
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+report_to: none
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 1
+gradient_checkpointing: true
+learning_rate: 5.0e-5
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.05
+bf16: true
+ddp_timeout: 180000000
+resume_from_checkpoint: null
+mask_history: false
+
+### eval
+val_size: 0.0
+per_device_eval_batch_size: 1

@@ -1,0 +1,52 @@
+### BFCL live holdout v1 · Hammer-FM · Qwen3.5-4B · seed=13
+### 对齐官方 / LF：qwen3_6，enable_thinking: false
+### 不覆盖 seed=42 锁定档。造数逻辑同主表，只改 RNG / 训练 seed。
+
+### model
+model_name_or_path: /media/cfs/ida-algo-train/ckpts/Qwen3.5-4B
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target: all
+
+### dataset
+dataset: bfcl_live_scene_holdout_hammer_fm_seed13
+overwrite_cache: true
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+template: qwen3_6
+enable_thinking: false
+cutoff_len: 12288
+
+### output
+output_dir: /media/cfs/ida-algo-train/wjj/ckpts/bfcl_live_scene_holdout_hammer_fm_lora_qwen35_4b_seed13
+logging_steps: 10
+save_steps: 10000000000
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+report_to: none
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 1
+gradient_checkpointing: true
+learning_rate: 5.0e-5
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.05
+bf16: true
+ddp_timeout: 180000000
+resume_from_checkpoint: null
+mask_history: false
+seed: 13
+
+### eval
+val_size: 0.0
+per_device_eval_batch_size: 1

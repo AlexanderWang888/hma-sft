@@ -1,0 +1,61 @@
+### MetaTool occupation · abl4_idr_Lall_2b · elders · Qwen3.5-2B
+### 对齐官方 / LF：qwen3_6，enable_thinking: false
+### 与 4B/9B 同档完全相同，只换基座 2B（InfoNCE leftover 100%）
+### 数据：metatool_occ_elders_hma_s9_abl4_idr_Lall（不另造 jsonl）
+### 不覆盖 4B/9B ckpt / jsonl
+
+### model
+model_name_or_path: /media/cfs/ida-algo-train/ckpts/Qwen3.5-2B
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target: all
+
+### dataset
+dataset: metatool_occ_elders_hma_s9_abl4_idr_Lall
+overwrite_cache: true
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+template: qwen3_6
+enable_thinking: false
+cutoff_len: 8192
+
+### IDR  L = CE(anchor) + 0.1 * InfoNCE
+use_idr_loss: true
+idr_alpha: 0.1
+idr_layer_idx: null
+idr_use_contrastive: true
+idr_temperature: 0.1
+idr_use_distributed_negatives: true
+
+### output
+output_dir: /media/cfs/ida-algo-train/wjj/ckpts/metatool_occ_elders_hma_s9_abl4_idr_Lall_lora_qwen35_2b
+logging_steps: 10
+save_steps: 10000000000
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+report_to: none
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 1
+gradient_checkpointing: true
+learning_rate: 5.0e-5
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.05
+bf16: true
+ddp_timeout: 180000000
+resume_from_checkpoint: null
+mask_history: false
+
+### eval
+val_size: 0.0
+per_device_eval_batch_size: 1

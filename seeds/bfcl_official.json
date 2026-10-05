@@ -1,0 +1,36 @@
+{
+  "_doc": "Official BFCL tool names only. Mix surfaces are LLM-generated.",
+  "official_tools": [
+    "Movies_3_FindMovies",
+    "Movies_1_FindMovies",
+    "Media_3_FindMovies",
+    "Movies_1_BuyMovieTickets",
+    "Events_3_FindEvents",
+    "events_api.EventsApi.get_event",
+    "Music_3_LookupMusic",
+    "Music_3_PlayMedia",
+    "get_service_providers",
+    "Services_4_FindProvider",
+    "Services_1_FindProvider",
+    "view_service_provider_profile",
+    "Travel_1_FindAttractions",
+    "Hotels_2_SearchHouse",
+    "Hotels_4_SearchHotel",
+    "Buses_3_FindBus",
+    "Buses_3_BuyBusTicket",
+    "RentalCars_3_GetCarsAvailable",
+    "Trains_1_FindTrains",
+    "Trains_1_GetTrainTickets",
+    "Flights_4_SearchOnewayFlight",
+    "Weather_1_GetWeather",
+    "weather_forecast.get"
+  ],
+  "scenes": [
+    "movies",
+    "events",
+    "music",
+    "travel",
+    "services",
+    "weather"
+  ]
+}
